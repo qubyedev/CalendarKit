@@ -479,9 +479,9 @@ public final class TimelineView: UIView {
 
     groupsOfEvents.append(overlappingEvents)
     overlappingEvents.removeAll()
-
+    
     for overlappingEvents in groupsOfEvents {
-      let totalCount = CGFloat(overlappingEvents.count)
+      let totalCount = CGFloat(overlappingEvents.count) + 1//Yuan
       for (index, event) in overlappingEvents.enumerated() {
         let startY = dateToY(event.descriptor.datePeriod.lowerBound)
         let endY = dateToY(event.descriptor.datePeriod.upperBound)
