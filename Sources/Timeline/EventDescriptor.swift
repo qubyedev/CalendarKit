@@ -12,6 +12,8 @@ public protocol EventDescriptor: AnyObject {
   var color: UIColor {get}
   var textColor: UIColor {get}
   var backgroundColor: UIColor {get}
+  var borderWidth: CGFloat {get}
+  var borderColor: CGColor {get}
   var editedEvent: EventDescriptor? {get set}
   func makeEditable() -> Self
   func commitEditing()
