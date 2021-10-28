@@ -33,6 +33,8 @@ open class EventView: UIView {
   private func configure() {
     clipsToBounds = false
     color = tintColor
+    layer.cornerRadius = 5
+    layer.masksToBounds = true
     addSubview(textView)
     
     for (idx, handle) in eventResizeHandles.enumerated() {
@@ -54,6 +56,8 @@ open class EventView: UIView {
     }
     descriptor = event
     backgroundColor = event.backgroundColor
+    layer.borderWidth = event.borderWidth
+    layer.borderColor = event.borderColor
     color = event.color
     eventResizeHandles.forEach{
       $0.borderColor = event.color
@@ -97,6 +101,7 @@ open class EventView: UIView {
 
   override open func draw(_ rect: CGRect) {
     super.draw(rect)
+    /*
     guard let context = UIGraphicsGetCurrentContext() else {
       return
     }
@@ -113,6 +118,7 @@ open class EventView: UIView {
     context.addLine(to: CGPoint(x: x, y: (bounds).height))
     context.strokePath()
     context.restoreGState()
+ */
   }
 
   private var drawsShadow = false

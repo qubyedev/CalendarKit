@@ -1,6 +1,8 @@
 import UIKit
 
 public final class Event: EventDescriptor {
+  public var borderWidth: CGFloat = 1
+  public var borderColor: CGColor = UIColor.black.cgColor
   public var startDate = Date()
   public var endDate = Date()
   public var isAllDay = false
