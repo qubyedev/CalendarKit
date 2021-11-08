@@ -18,6 +18,7 @@ public final class Event: EventDescriptor {
   public var textColor = SystemColors.label
   public var font = UIFont.boldSystemFont(ofSize: 12)
   public var userInfo: Any?
+    public var appointmentIndex = -1
   public weak var editedEvent: EventDescriptor? {
     didSet {
       updateColors()
