@@ -21,7 +21,7 @@ public final class DayHeaderView: UIView, DaySelectorDelegate, DayViewStateUpdat
 
   private var daySymbolsViewHeight: CGFloat = 20
   private var pagingScrollViewHeight: CGFloat = 40
-  private var swipeLabelViewHeight: CGFloat = 20
+  private var swipeLabelViewHeight: CGFloat = 0//20
 
   private let daySymbolsView: DaySymbolsView
   private var pagingViewController = UIPageViewController(transitionStyle: .scroll,
@@ -44,7 +44,8 @@ public final class DayHeaderView: UIView, DaySelectorDelegate, DayViewStateUpdat
   }
 
   private func configure() {
-    [daySymbolsView, swipeLabelView].forEach(addSubview)
+//    [daySymbolsView, swipeLabelView].forEach(addSubview)
+    addSubview(daySymbolsView)//add by Yuan 12/04
     backgroundColor = style.backgroundColor
     configurePagingViewController()
   }
@@ -99,10 +100,10 @@ public final class DayHeaderView: UIView, DaySelectorDelegate, DayViewStateUpdat
     super.layoutSubviews()
     daySymbolsView.frame = CGRect(origin: .zero,
                                   size: CGSize(width: bounds.width, height: daySymbolsViewHeight))
-    pagingViewController.view?.frame = CGRect(origin: CGPoint(x: 0, y: daySymbolsViewHeight),
+    pagingViewController.view?.frame = CGRect(origin: CGPoint(x: 0, y: 5),
                                               size: CGSize(width: bounds.width, height: pagingScrollViewHeight))
-    swipeLabelView.frame = CGRect(origin: CGPoint(x: 0, y: bounds.height - 10 - swipeLabelViewHeight),
-                                  size: CGSize(width: bounds.width, height: swipeLabelViewHeight))
+//    swipeLabelView.frame = CGRect(origin: CGPoint(x: 0, y: bounds.height - 10 - swipeLabelViewHeight),
+//                                  size: CGSize(width: bounds.width, height: swipeLabelViewHeight))
   }
 
   public func transitionToHorizontalSizeClass(_ sizeClass: UIUserInterfaceSizeClass) {

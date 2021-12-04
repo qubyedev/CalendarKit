@@ -63,7 +63,7 @@ public final class SwipeLabelView: UIView, DayViewStateUpdating {
       let label = UILabel()
       label.textAlignment = .center
       labels.append(label)
-      addSubview(label)
+//      addSubview(label)
     }
     updateStyle(style)
   }
