@@ -1,20 +1,37 @@
 import UIKit
 
 open class EventView: UIView {
-  public var descriptor: EventDescriptor?
-  public var color = SystemColors.label
+    public var descriptor: EventDescriptor?
+    public var color = SystemColors.label
 
-  public var contentHeight: CGFloat {
-    return textView.frame.height
-  }
+    public var contentHeight: CGFloat {
+        return titleView.frame.height
+    }
 
-  public lazy var textView: UITextView = {
-    let view = UITextView()
-    view.isUserInteractionEnabled = false
-    view.backgroundColor = .clear
-    view.isScrollEnabled = false
-    return view
-  }()
+    public lazy var titleView: UITextView = {
+        let view = UITextView()
+        view.isUserInteractionEnabled = false
+        view.backgroundColor = .clear
+        view.isScrollEnabled = false
+        return view
+    }()
+    
+    public lazy var timeView: UITextView = {
+        let view = UITextView()
+        view.isUserInteractionEnabled = false
+        view.backgroundColor = .clear
+        view.isScrollEnabled = false
+        return view
+    }()
+    
+    public lazy var redCircle: UIView = {
+        let view = UIView()
+        let errorRed500 = UIColor(red: 0.92, green: 0.17, blue: 0.12, alpha: 1.00)//#EA2B1F
+        view.backgroundColor = errorRed500
+        view.layer.cornerRadius = 4
+        
+        return view
+    }()
 
   /// Resize Handle views showing up when editing the event.
   /// The top handle has a tag of `0` and the bottom has a tag of `1`
@@ -35,7 +52,9 @@ open class EventView: UIView {
     color = tintColor
     layer.cornerRadius = 5
     layer.masksToBounds = true
-    addSubview(textView)
+    addSubview(titleView)
+    addSubview(timeView)
+    addSubview(redCircle)
     
     for (idx, handle) in eventResizeHandles.enumerated() {
       handle.tag = idx
@@ -44,16 +63,33 @@ open class EventView: UIView {
   }
 
   public func updateWithDescriptor(event: EventDescriptor) {
-    if let attributedText = event.attributedText {
-      textView.attributedText = attributedText
+    if let titleAttributedText = event.titleAttributedText {
+        titleView.attributedText = titleAttributedText
     } else {
-      textView.text = event.text
-      textView.textColor = event.textColor
-      textView.font = event.font
+        titleView.text = event.titleText
+        titleView.textColor = event.textColor
+        titleView.font = .boldSystemFont(ofSize: 13)
     }
+    
+    if let timeAttributedText = event.timeAttributedText {
+        timeView.attributedText = timeAttributedText
+    } else {
+        timeView.text = event.timeText
+        timeView.textColor = event.textColor
+        timeView.font = .systemFont(ofSize: 12)
+    }
+    
     if let lineBreakMode = event.lineBreakMode {
-      textView.textContainer.lineBreakMode = lineBreakMode
+        titleView.textContainer.lineBreakMode = lineBreakMode
+        timeView.textContainer.lineBreakMode = lineBreakMode
     }
+    
+    if event.isHiddenRedCircle{
+        redCircle.isHidden = true
+    } else {
+        redCircle.isHidden = false
+    }
+    
     descriptor = event
     backgroundColor = event.backgroundColor
     layer.borderWidth = event.borderWidth
@@ -125,18 +161,29 @@ open class EventView: UIView {
 
   override open func layoutSubviews() {
     super.layoutSubviews()
-    textView.frame = {
-        if UIView.userInterfaceLayoutDirection(for: semanticContentAttribute) == .rightToLeft {
-            return CGRect(x: bounds.minX, y: bounds.minY, width: bounds.width - 3, height: bounds.height)
-        } else {
-            return CGRect(x: bounds.minX + 3, y: bounds.minY, width: bounds.width - 3, height: bounds.height)
-        }
+    if redCircle.isHidden{
+        titleView.frame = {
+            return CGRect(x: bounds.minX + 7, y: bounds.minY, width: bounds.width - 3, height: 25)
+        }()
+    } else {
+        titleView.frame = {
+            return CGRect(x: bounds.minX + 26, y: bounds.minY, width: bounds.width - 3, height: 25)
+        }()
+    }
+    
+    timeView.frame = {
+        return CGRect(x: bounds.minX + 7, y: bounds.minY + 19, width: bounds.width - 3, height: 20)
     }()
+    
+    redCircle.frame = {
+        return CGRect(x: bounds.minX + 13, y: bounds.minY + 12, width: 8, height: 8)
+    }()
+    
     if frame.minY < 0 {
-      var textFrame = textView.frame;
+      var textFrame = titleView.frame;
       textFrame.origin.y = frame.minY * -1;
       textFrame.size.height += frame.minY;
-      textView.frame = textFrame;
+      titleView.frame = textFrame;
     }
     let first = eventResizeHandles.first
     let last = eventResizeHandles.last

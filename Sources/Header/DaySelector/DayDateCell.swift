@@ -73,7 +73,7 @@ public final class DayDateCell: UIView, DaySelectorItemProtocol {
     var weekDays = Array(zip(daySymbols, weekendMask))
     weekDays.shift(calendar.firstWeekday - 1)
     let weekDay = component(component: .weekday, from: date)
-    dayLabel.text = daySymbols[weekDay - 1]
+    dayLabel.text = "\(daySymbols[weekDay - 1])eee"
   }
 
   private func component(component: Calendar.Component, from date: Date) -> Int {

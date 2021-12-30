@@ -1,15 +1,18 @@
 import UIKit
 
 public final class Event: EventDescriptor {
-  public var borderWidth: CGFloat = 1
-  public var borderColor: CGColor = UIColor.black.cgColor
-  public var startDate = Date()
-  public var endDate = Date()
-  public var isAllDay = false
-  public var text = ""
-  public var attributedText: NSAttributedString?
-  public var lineBreakMode: NSLineBreakMode?
-  public var color = SystemColors.systemBlue {
+    public var borderWidth: CGFloat = 1
+    public var borderColor: CGColor = UIColor.black.cgColor
+    public var startDate = Date()
+    public var endDate = Date()
+    public var isAllDay = false
+    public var titleText = ""
+    public var titleAttributedText: NSAttributedString?
+    public var timeText = ""
+    public var isHiddenRedCircle = true
+    public var timeAttributedText: NSAttributedString?
+    public var lineBreakMode: NSLineBreakMode?
+    public var color = SystemColors.systemBlue {
     didSet {
       updateColors()
     }
@@ -32,8 +35,11 @@ public final class Event: EventDescriptor {
     cloned.startDate = startDate
     cloned.endDate = endDate
     cloned.isAllDay = isAllDay
-    cloned.text = text
-    cloned.attributedText = attributedText
+    cloned.titleText = titleText
+    cloned.titleAttributedText = titleAttributedText
+    cloned.timeText = timeText
+    cloned.timeAttributedText = timeAttributedText
+    cloned.isHiddenRedCircle = isHiddenRedCircle
     cloned.lineBreakMode = lineBreakMode
     cloned.color = color
     cloned.backgroundColor = backgroundColor

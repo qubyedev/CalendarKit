@@ -95,7 +95,9 @@ class CustomCalendarExampleController: DayViewController {
       print(timezone)
 
       info.append(rangeFormatter.string(from: event.startDate, to: event.endDate))
-      event.text = info.reduce("", {$0 + $1 + "\n"})
+      event.titleText = info.reduce("", {$0 + $1 + "\n"})
+      event.timeText = "5566"
+      event.isHiddenRedCircle = Bool.random()
       event.color = colors[Int(arc4random_uniform(UInt32(colors.count)))]
       event.isAllDay = Int(arc4random_uniform(2)) % 2 == 0
       event.lineBreakMode = .byTruncatingTail
@@ -171,7 +173,8 @@ class CustomCalendarExampleController: DayViewController {
     var info = data[Int(arc4random_uniform(UInt32(data.count)))]
 
     info.append(rangeFormatter.string(from: event.startDate, to: event.endDate))
-    event.text = info.reduce("", {$0 + $1 + "\n"})
+    event.titleText = info.reduce("", {$0 + $1 + "\n"})
+    event.timeText = "5566"
     event.color = colors[Int(arc4random_uniform(UInt32(colors.count)))]
     event.editedEvent = event
 
