@@ -38,7 +38,7 @@ public class DayView: UIView, TimelinePagerViewDelegate {
     return timelinePagerView.timelineScrollOffset
   }
 
-  private static let headerVisibleHeight: CGFloat = 30//50 //0114 by yuan
+  private static let headerVisibleHeight: CGFloat = 40//50 //0114 by yuan
   public var headerHeight: CGFloat = headerVisibleHeight
 
   public var autoScrollToFirstEvent: Bool {

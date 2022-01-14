@@ -123,7 +123,7 @@ public final class DaySelector: UIView {
 
     let itemCount = CGFloat(items.count)
     let size = items.first?.intrinsicContentSize ?? .zero
-    let newSize = CGSize(width: size.width, height: 20)//0114 by yuan
+    let newSize = CGSize(width: size.width, height: 30)//0114 by yuan
 
     let parentWidth = bounds.size.width
 
