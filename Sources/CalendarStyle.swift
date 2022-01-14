@@ -22,24 +22,24 @@ public struct DayHeaderStyle {
   public var daySymbols = DaySymbolsStyle()
   public var daySelector = DaySelectorStyle()
   public var swipeLabel = SwipeLabelStyle()
-  public var backgroundColor = SystemColors.secondarySystemBackground
+    public var backgroundColor = UIColor.white//SystemColors.secondarySystemBackground
   public init() {}
 }
 
 public struct DaySelectorStyle {
-  public var activeTextColor = SystemColors.systemBackground
-  public var selectedBackgroundColor = SystemColors.label
+    public var activeTextColor = Colors.tudiMainColor//SystemColors.systemBackground
+  public var selectedBackgroundColor = UIColor.clear//SystemColors.label
 
-  public var weekendTextColor = SystemColors.secondaryLabel
+  public var weekendTextColor = SystemColors.label//SystemColors.secondaryLabel
   public var inactiveTextColor = SystemColors.label
   public var inactiveBackgroundColor = UIColor.clear
 
-  public var todayInactiveTextColor = SystemColors.systemRed
-  public var todayActiveTextColor = UIColor.white
-  public var todayActiveBackgroundColor = SystemColors.systemRed
+  public var todayInactiveTextColor = SystemColors.label//SystemColors.systemRed
+  public var todayActiveTextColor = SystemColors.label//UIColor.white
+  public var todayActiveBackgroundColor = UIColor.clear//SystemColors.systemRed
     
-  public var font = UIFont.systemFont(ofSize: 18)
-  public var todayFont = UIFont.boldSystemFont(ofSize: 18)
+  public var font = UIFont.systemFont(ofSize: 13)
+  public var todayFont = UIFont.systemFont(ofSize: 13)
   
   public init() {}
 }

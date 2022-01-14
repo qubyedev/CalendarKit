@@ -28,6 +28,7 @@ public final class DayDateCell: UIView, DaySelectorItemProtocol {
     }
     set(value) {
       dateLabel.selected = value
+      updateState()
     }
   }
 
@@ -59,9 +60,17 @@ public final class DayDateCell: UIView, DaySelectorItemProtocol {
   }
 
   private func updateState() {
-    let isWeekend = isAWeekend(date: date)
-    dayLabel.font = UIFont.systemFont(ofSize: regularSizeClassFontSize)
-    dayLabel.textColor = isWeekend ? style.weekendTextColor : style.inactiveTextColor
+//    let isWeekend = isAWeekend(date: date)
+    dayLabel.font = UIFont.systemFont(ofSize: 13)
+//    dayLabel.textColor = isWeekend ? style.weekendTextColor : style.inactiveTextColor
+    // 0114 by yuan
+    if selected{
+        dayLabel.textColor = style.activeTextColor
+    } else {
+        dayLabel.textColor = style.inactiveTextColor
+    }
+    // 0114 by yuan
+    
     dateLabel.updateState()
     updateDayLabel()
     setNeedsLayout()
@@ -74,6 +83,14 @@ public final class DayDateCell: UIView, DaySelectorItemProtocol {
     weekDays.shift(calendar.firstWeekday - 1)
     let weekDay = component(component: .weekday, from: date)
     dayLabel.text = "\(daySymbols[weekDay - 1])"// 20211230 did work with "eee"
+    
+    // 0114 by yuan
+    if selected{
+        dayLabel.textColor = style.activeTextColor
+    } else {
+        dayLabel.textColor = style.inactiveTextColor
+    }
+    // 0114 by yuan
   }
 
   private func component(component: Calendar.Component, from date: Date) -> Int {

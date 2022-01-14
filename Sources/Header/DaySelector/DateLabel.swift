@@ -9,7 +9,7 @@ public final class DateLabel: UILabel, DaySelectorItemProtocol {
 
   public var date = Date() {
     didSet {
-        text = String(calendar.dateComponents([.day], from: date).day!)
+        text = String()
       updateState()
     }
   }
@@ -52,16 +52,18 @@ public final class DateLabel: UILabel, DaySelectorItemProtocol {
   }
 
   func updateState() {
-    text = String(component(component: .day, from: date))
+    text = "\(String(component(component: .day, from: date)))"
     let today = isToday
     if selected {
       font = style.todayFont
-      textColor = today ? style.todayActiveTextColor : style.activeTextColor
+      //textColor = today ? style.todayActiveTextColor : style.activeTextColor
+        textColor = style.activeTextColor
       backgroundColor = today ? style.todayActiveBackgroundColor : style.selectedBackgroundColor
     } else {
-      let notTodayColor = isAWeekend(date: date) ? style.weekendTextColor : style.inactiveTextColor
+//      let notTodayColor = isAWeekend(date: date) ? style.weekendTextColor : style.inactiveTextColor
       font = style.font
-      textColor = today ? style.todayInactiveTextColor : notTodayColor
+//      textColor = today ? style.todayInactiveTextColor : notTodayColor
+        textColor = style.inactiveTextColor
       backgroundColor = style.inactiveBackgroundColor
     }
   }
