@@ -88,6 +88,7 @@ public final class TimelineView: UIView {
 
   public var fullHeight: CGFloat {
     return style.verticalInset * 2 + style.verticalDiff * 24
+//    return style.verticalInset * 2 + style.verticalDiff * 48 // 0115 by Yuan
   }
 
   public var calendarWidth: CGFloat {
@@ -114,7 +115,9 @@ public final class TimelineView: UIView {
   lazy var snappingBehavior: EventEditingSnappingBehavior = snappingBehaviorType.init(calendar)
 
   private var times: [String] {
-    return is24hClock ? _24hTimes : _12hTimes
+//    return is24hClock ? _24hTimes : _12hTimes
+//    print("test 0115 _12hTimes: \(_12hTimes)")
+    return _12hTimes//0115 by Yuan
   }
 
   private lazy var _12hTimes: [String] = TimeStringsFactory(calendar).make12hStrings()
@@ -247,7 +250,92 @@ public final class TimelineView: UIView {
   // MARK: - Background Pattern
 
   public var accentedDate: Date?
+    override public func draw(_ rect: CGRect) {
+        super.draw(rect)
 
+        var hourToRemoveIndex = -1
+
+        if isToday {
+            let minute = component(component: .minute, from: currentTime)
+            let hour = component(component: .hour, from: currentTime)
+//          let minute = currentTime.minute
+          if minute > 39 {
+            hourToRemoveIndex = hour + 1
+          } else if minute < 21 {
+            hourToRemoveIndex = hour
+          }
+        }
+
+        let mutableParagraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
+        mutableParagraphStyle.lineBreakMode = .byWordWrapping
+        mutableParagraphStyle.alignment = .right
+        let paragraphStyle = mutableParagraphStyle.copy() as! NSParagraphStyle
+
+        let attributes = [NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                          NSAttributedString.Key.foregroundColor: self.style.timeColor,
+                          NSAttributedString.Key.font: style.font] as [NSAttributedString.Key : Any]
+        
+        let hourLineHeight = 1 / UIScreen.main.scale
+
+        for (i, time) in times.enumerated() {
+          let iFloat = CGFloat(i)
+          let context = UIGraphicsGetCurrentContext()
+          context!.interpolationQuality = .none
+          context?.saveGState()
+          context?.setStrokeColor(style.separatorColor.cgColor)
+          context?.setLineWidth(hourLineHeight)
+          context?.translateBy(x: 0, y: 0.5)
+          let x: CGFloat = 53
+            let y = style.verticalInset + iFloat * style.verticalDiff
+          context?.beginPath()
+          context?.move(to: CGPoint(x: x, y: y))
+          context?.addLine(to: CGPoint(x: (bounds).width, y: y))
+          context?.strokePath()
+          context?.restoreGState()
+
+          if i == hourToRemoveIndex { continue }
+            
+            let fontSize = style.font.pointSize
+
+            let timeRect = CGRect(x: 2, y: iFloat * style.verticalDiff + style.verticalInset - 7,
+                                  width: 53 - 8, height: fontSize + 2)
+
+          let timeString = NSString(string: time)
+        
+          // line to be added for 30 min interval
+          let subLineContext = UIGraphicsGetCurrentContext()
+          subLineContext!.interpolationQuality = .none
+          subLineContext?.saveGState()
+          subLineContext?.setStrokeColor(style.separatorColor.cgColor)
+          subLineContext?.setLineWidth(1)
+          subLineContext?.translateBy(x: 0, y: 0)
+          let halfHourX: CGFloat = 53
+            let halfHourY = (style.verticalInset + iFloat * style.verticalDiff) + (style.verticalDiff/2)
+          subLineContext?.beginPath()
+          subLineContext?.move(to: CGPoint(x: halfHourX, y: halfHourY))
+          subLineContext?.addLine(to: CGPoint(x: (bounds).width, y: halfHourY))
+          subLineContext?.strokePath()
+
+          //add half hour time string
+            let halfHourTimeRect = CGRect(x: 2, y: (iFloat * style.verticalDiff + style.verticalInset - 7) + (style.verticalDiff/2),
+                                  width: 53 - 8, height: fontSize + 2)
+            
+          var halfHourTimeString = NSString()
+          
+          //To be changed in a better quality code with proper time references. This is a work around
+          if is24hClock {
+            halfHourTimeString = NSString(string: time.replacingOccurrences(of: ":00", with: ":30"))
+          } else {
+             halfHourTimeString = (time == "Noon") ? NSString(string: "12:30") : NSString(string: time.replacingOccurrences(of: " AM", with: ":30").replacingOccurrences(of: " PM", with: ":30"))
+          }
+            
+          timeString.draw(in: timeRect, withAttributes: attributes)
+            
+          halfHourTimeString.draw(in: halfHourTimeRect, withAttributes: attributes)
+       
+        }
+     }
+/*
   override public func draw(_ rect: CGRect) {
     super.draw(rect)
 
@@ -293,7 +381,7 @@ public final class TimelineView: UIView {
     let offset = 0.5 - center
     
     for (hour, time) in times.enumerated() {
-        let rightToLeft = UIView.userInterfaceLayoutDirection(for: semanticContentAttribute) == .rightToLeft
+//        times
         
         let hourFloat = CGFloat(hour)
         let context = UIGraphicsGetCurrentContext()
@@ -302,18 +390,20 @@ public final class TimelineView: UIView {
         context?.setStrokeColor(style.separatorColor.cgColor)
         context?.setLineWidth(hourLineHeight)
         let xStart: CGFloat = {
-            if rightToLeft {
-                return bounds.width - 53
-            } else {
-                return 53
-            }
+//            if rightToLeft {
+//                return bounds.width - 53
+//            } else {
+//                return 53
+//            }
+            return 60
         }()
         let xEnd: CGFloat = {
-            if rightToLeft {
-                return 0
-            } else {
-                return bounds.width
-            }
+//            if rightToLeft {
+//                return 0
+//            } else {
+//                return bounds.width
+//            }
+            return bounds.width
         }()
         let y = style.verticalInset + hourFloat * style.verticalDiff + offset
         context?.beginPath()
@@ -327,11 +417,12 @@ public final class TimelineView: UIView {
         let fontSize = style.font.pointSize
         let timeRect: CGRect = {
             var x: CGFloat
-            if rightToLeft {
-                x = bounds.width - 53
-            } else {
-                x = 2
-            }
+//            if rightToLeft {
+//                x = bounds.width - 53
+//            } else {
+//                x = 2
+//            }
+            x = 10
             
             return CGRect(x: x,
                           y: hourFloat * style.verticalDiff + style.verticalInset - 7,
@@ -340,6 +431,7 @@ public final class TimelineView: UIView {
         }()
     
         let timeString = NSString(string: time)
+        print("test 0115 timeString: \(timeString)")
         timeString.draw(in: timeRect, withAttributes: attributes)
     
         if accentedMinute == 0 {
@@ -363,7 +455,9 @@ public final class TimelineView: UIView {
             timeString.draw(in: timeRect, withAttributes: attributes)
         }
     }
+    
   }
+    */
   
   // MARK: - Layout
 

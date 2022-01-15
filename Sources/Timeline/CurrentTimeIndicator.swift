@@ -2,7 +2,7 @@ import UIKit
 
 @objc public final class CurrentTimeIndicator: UIView {
   private let padding : CGFloat = 3
-  private let leadingInset: CGFloat = 53
+  private let leadingInset: CGFloat = 60//53 0115 by Yuan
 
   public var calendar: Calendar = Calendar.autoupdatingCurrent {
     didSet {
@@ -97,10 +97,14 @@ import UIKit
   }
     
   private func updateDate() {
-    dateFormatter.dateFormat = is24hClock ? "HH:mm" : "h:mm a"
+    dateFormatter.dateFormat = "h:mm a"//is24hClock ? "HH:mm" : "h:mm a" 0115 by yuan
     dateFormatter.calendar = calendar
     dateFormatter.timeZone = calendar.timeZone
+//    dateFormatter.timeZone = TimeZone(identifier: "Asia/Taipei")
+//    print("test 0115 dateFormatter.timeZone: \(dateFormatter.timepZone)")
     timeLabel.text = dateFormatter.string(from: date)
+//    print("test 0115 date: \(date)")
+//    print("test 0115 currentTimeIndicator timeLabel.text: \(timeLabel.text)")
     timeLabel.sizeToFit()
     setNeedsLayout()
     configureTimer()
@@ -111,12 +115,13 @@ import UIKit
     line.frame = {
         
         let x: CGFloat
-        let rightToLeft = UIView.userInterfaceLayoutDirection(for: semanticContentAttribute) == .rightToLeft
-        if rightToLeft {
-            x = 0
-        } else {
-            x = leadingInset - padding
-        }
+//        let rightToLeft = UIView.userInterfaceLayoutDirection(for: semanticContentAttribute) == .rightToLeft
+//        if rightToLeft {
+//            x = 0
+//        } else {
+//            x = leadingInset - padding
+//        }
+        x = leadingInset
         
         return CGRect(x: x, y: bounds.height / 2, width: bounds.width - leadingInset, height: 1)
     }()
@@ -124,11 +129,12 @@ import UIKit
     circle.frame = {
         
         let x: CGFloat
-        if UIView.userInterfaceLayoutDirection(for: semanticContentAttribute) == .rightToLeft {
-            x = bounds.width - leadingInset - 10
-        } else {
-            x = leadingInset + 1
-        }
+//        if UIView.userInterfaceLayoutDirection(for: semanticContentAttribute) == .rightToLeft {
+//            x = bounds.width - leadingInset - 10
+//        } else {
+//            x = leadingInset + 1
+//        }
+        x = leadingInset + 1
         
         return CGRect(x: x, y: 0, width: 6, height: 6)
     }()
