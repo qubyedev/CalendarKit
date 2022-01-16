@@ -53,6 +53,7 @@ public final class DateLabel: UILabel, DaySelectorItemProtocol {
 
   func updateState() {
     text = "\(String(component(component: .day, from: date)))"
+//    print("test 0117 text: \(text)")
     let today = isToday
     if selected {
       font = style.todayFont

@@ -38,8 +38,8 @@ public struct DaySelectorStyle {
   public var todayActiveTextColor = SystemColors.label//UIColor.white
   public var todayActiveBackgroundColor = UIColor.clear//SystemColors.systemRed
     
-  public var font = UIFont.systemFont(ofSize: 17)
-  public var todayFont = UIFont.systemFont(ofSize: 17)
+  public var font = UIFont.systemFont(ofSize: 14)
+  public var todayFont = UIFont.systemFont(ofSize: 14)
   
   public init() {}
 }

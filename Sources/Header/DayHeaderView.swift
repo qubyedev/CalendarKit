@@ -19,7 +19,7 @@ public final class DayHeaderView: UIView, DaySelectorDelegate, DayViewStateUpdat
 
   private var currentWeekdayIndex = -1
 
-  private var daySymbolsViewHeight: CGFloat = 20
+  private var daySymbolsViewHeight: CGFloat = 30
   private var pagingScrollViewHeight: CGFloat = 30//40
   private var swipeLabelViewHeight: CGFloat = 0//20
 
@@ -100,7 +100,7 @@ public final class DayHeaderView: UIView, DaySelectorDelegate, DayViewStateUpdat
     super.layoutSubviews()
     daySymbolsView.frame = CGRect(origin: .zero,
                                   size: CGSize(width: bounds.width, height: daySymbolsViewHeight))
-    pagingViewController.view?.frame = CGRect(origin: CGPoint(x: 0, y: 5),
+    pagingViewController.view?.frame = CGRect(origin: CGPoint(x: 0, y: 0),
                                               size: CGSize(width: bounds.width, height: pagingScrollViewHeight))
 //    swipeLabelView.frame = CGRect(origin: CGPoint(x: 0, y: bounds.height - 10 - swipeLabelViewHeight),
 //                                  size: CGSize(width: bounds.width, height: swipeLabelViewHeight))

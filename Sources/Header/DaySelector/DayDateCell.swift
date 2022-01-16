@@ -5,7 +5,7 @@ public final class DayDateCell: UIView, DaySelectorItemProtocol {
   private let dateLabel = DateLabel()
   private let dayLabel = UILabel()
 
-  private var regularSizeClassFontSize: CGFloat = 16
+  private var regularSizeClassFontSize: CGFloat = 17
 
   public var date = Date() {
     didSet {
@@ -50,7 +50,7 @@ public final class DayDateCell: UIView, DaySelectorItemProtocol {
 
   private func configure() {
     clipsToBounds = true
-    [dayLabel, dateLabel].forEach(addSubview(_:))
+    [dateLabel, dayLabel].forEach(addSubview(_:))
   }
 
   public func updateStyle(_ newStyle: DaySelectorStyle) {
@@ -61,7 +61,7 @@ public final class DayDateCell: UIView, DaySelectorItemProtocol {
 
   private func updateState() {
 //    let isWeekend = isAWeekend(date: date)
-    dayLabel.font = UIFont.systemFont(ofSize: 17)
+    dayLabel.font = UIFont.systemFont(ofSize: 14)
 //    dayLabel.textColor = isWeekend ? style.weekendTextColor : style.inactiveTextColor
     // 0114 by yuan
     if selected{
@@ -83,6 +83,7 @@ public final class DayDateCell: UIView, DaySelectorItemProtocol {
     weekDays.shift(calendar.firstWeekday - 1)
     let weekDay = component(component: .weekday, from: date)
     dayLabel.text = "\(daySymbols[weekDay - 1])"// 20211230 did work with "eee"
+//    print("test 0117 dayLabel: \(dayLabel.text)")
     
     // 0114 by yuan
     if selected{
@@ -109,15 +110,26 @@ public final class DayDateCell: UIView, DaySelectorItemProtocol {
     super.layoutSubviews()
     dayLabel.sizeToFit()
     dayLabel.center.y = center.y
-    let interItemSpacing: CGFloat = selected ? 5 : 3
+    dayLabel.frame.size = CGSize(width: dayLabel.frame.size.width, height: 30.0)
+//    dayLabel.center.y = 22.25
+//    print("test 0117 dayLabel.center.y: \(dayLabel.center.y)")
+//    print("test 0117 dayLabel.bounds: \(dayLabel.bounds)")
+//    let interItemSpacing: CGFloat = selected ? 5 : 3
+//    let interItemSpacing: CGFloat = 5
+    dateLabel.sizeToFit()
     dateLabel.center.y = center.y
-    dateLabel.frame.origin.x = dayLabel.frame.maxX + interItemSpacing
+//    dateLabel.center.y = 22.25
+//    dateLabel.frame.origin.x = dayLabel.frame.maxX + interItemSpacing
     dateLabel.frame.size = CGSize(width: 30, height: 30)
+    dayLabel.frame.origin.x = dateLabel.frame.maxX// + interItemSpacing
+//    print("test 0117 dateLabel.center.y: \(dateLabel.center.y)")
+//    print("test 0117 dateLabel.bounds: \(dateLabel.bounds)")
 
-    let freeSpace = bounds.width - (dateLabel.frame.origin.x + dateLabel.frame.width)
+    let freeSpace = bounds.width - (dayLabel.frame.origin.x + dayLabel.frame.width)
     let padding = freeSpace / 2
-    [dayLabel, dateLabel].forEach { (label) in
+    [dateLabel, dayLabel].forEach { (label) in
       label.frame.origin.x += padding
+        print("test 0117 label.text: \(label.text)")
     }
   }
   override public func tintColorDidChange() {
