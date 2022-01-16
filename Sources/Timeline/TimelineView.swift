@@ -254,17 +254,17 @@ public final class TimelineView: UIView {
         super.draw(rect)
 
         var hourToRemoveIndex = -1
-
-        if isToday {
-            let minute = component(component: .minute, from: currentTime)
-            let hour = component(component: .hour, from: currentTime)
-//          let minute = currentTime.minute
-//          if minute > 39 {
-//            hourToRemoveIndex = hour + 1
-//          } else if minute < 21 {
-//            hourToRemoveIndex = hour
-//          }
-        }
+//
+//        if isToday {
+//            let minute = component(component: .minute, from: currentTime)
+//            let hour = component(component: .hour, from: currentTime)
+////          let minute = currentTime.minute
+////          if minute > 39 {
+////            hourToRemoveIndex = hour + 1
+////          } else if minute < 21 {
+////            hourToRemoveIndex = hour
+////          }
+//        }
 
         let mutableParagraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         mutableParagraphStyle.lineBreakMode = .byWordWrapping
@@ -301,7 +301,7 @@ public final class TimelineView: UIView {
                                   width: 53, height: fontSize + 2)
 
           var timeString = NSString(string: time)
-            print("timeString: \(timeString)")
+//            print("timeString: \(timeString)")
             timeString = (time == "12:00") ? NSString(string: "12:00 PM") : NSString(string: time)
             
 //            print("test 0116 time: \(time)")
@@ -499,9 +499,9 @@ public final class TimelineView: UIView {
       let eventView = eventViews[idx]
       eventView.frame = attributes.frame
         
-//      let x: CGFloat = attributes.frame.minX
+      let x: CGFloat = attributes.frame.minX + 7
         
-      eventView.frame = CGRect(x: 60,
+      eventView.frame = CGRect(x: x,
                                y: attributes.frame.minY,
                                width: attributes.frame.width - style.eventGap,
                                height: attributes.frame.height - style.eventGap)
