@@ -259,11 +259,11 @@ public final class TimelineView: UIView {
             let minute = component(component: .minute, from: currentTime)
             let hour = component(component: .hour, from: currentTime)
 //          let minute = currentTime.minute
-          if minute > 39 {
-            hourToRemoveIndex = hour + 1
-          } else if minute < 21 {
-            hourToRemoveIndex = hour
-          }
+//          if minute > 39 {
+//            hourToRemoveIndex = hour + 1
+//          } else if minute < 21 {
+//            hourToRemoveIndex = hour
+//          }
         }
 
         let mutableParagraphStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
@@ -285,7 +285,7 @@ public final class TimelineView: UIView {
           context?.setStrokeColor(style.separatorColor.cgColor)
           context?.setLineWidth(hourLineHeight)
           context?.translateBy(x: 0, y: 0.5)
-          let x: CGFloat = 53
+          let x: CGFloat = 60
             let y = style.verticalInset + iFloat * style.verticalDiff
           context?.beginPath()
           context?.move(to: CGPoint(x: x, y: y))
@@ -297,10 +297,15 @@ public final class TimelineView: UIView {
             
             let fontSize = style.font.pointSize
 
-            let timeRect = CGRect(x: 2, y: iFloat * style.verticalDiff + style.verticalInset - 7,
-                                  width: 53 - 8, height: fontSize + 2)
+            let timeRect = CGRect(x: 5, y: iFloat * style.verticalDiff + style.verticalInset - 7,
+                                  width: 53, height: fontSize + 2)
 
-          let timeString = NSString(string: time)
+          var timeString = NSString(string: time)
+            print("timeString: \(timeString)")
+            timeString = (time == "12:00") ? NSString(string: "12:00 PM") : NSString(string: time)
+            
+//            print("test 0116 time: \(time)")
+//            print("test 0116 timeString: \(timeString)")
         
           // line to be added for 30 min interval
           let subLineContext = UIGraphicsGetCurrentContext()
@@ -309,7 +314,7 @@ public final class TimelineView: UIView {
           subLineContext?.setStrokeColor(style.separatorColor.cgColor)
           subLineContext?.setLineWidth(1)
           subLineContext?.translateBy(x: 0, y: 0)
-          let halfHourX: CGFloat = 53
+          let halfHourX: CGFloat = 60
             let halfHourY = (style.verticalInset + iFloat * style.verticalDiff) + (style.verticalDiff/2)
           subLineContext?.beginPath()
           subLineContext?.move(to: CGPoint(x: halfHourX, y: halfHourY))
@@ -317,17 +322,20 @@ public final class TimelineView: UIView {
           subLineContext?.strokePath()
 
           //add half hour time string
-            let halfHourTimeRect = CGRect(x: 2, y: (iFloat * style.verticalDiff + style.verticalInset - 7) + (style.verticalDiff/2),
-                                  width: 53 - 8, height: fontSize + 2)
+            let halfHourTimeRect = CGRect(x: 5, y: (iFloat * style.verticalDiff + style.verticalInset - 7) + (style.verticalDiff/2),
+                                  width: 53, height: fontSize + 2)
             
           var halfHourTimeString = NSString()
           
           //To be changed in a better quality code with proper time references. This is a work around
-          if is24hClock {
-            halfHourTimeString = NSString(string: time.replacingOccurrences(of: ":00", with: ":30"))
-          } else {
-             halfHourTimeString = (time == "Noon") ? NSString(string: "12:30") : NSString(string: time.replacingOccurrences(of: " AM", with: ":30").replacingOccurrences(of: " PM", with: ":30"))
-          }
+//          if is24hClock {
+//            halfHourTimeString = NSString(string: time.replacingOccurrences(of: ":00", with: ":30"))
+//          } else {
+//             halfHourTimeString = (time == "Noon") ? NSString(string: "12:30") : NSString(string: time.replacingOccurrences(of: " AM", with: ":30").replacingOccurrences(of: " PM", with: ":30"))
+//          }
+            halfHourTimeString = (time == "12:00") ? NSString(string: "12:30 PM") : NSString(string: time.replacingOccurrences(of: "00", with: "30"))//.replacingOccurrences(of: " PM", with: ":30 PM"))
+            
+//            print("test 0116 halfHourTimeString: \(halfHourTimeString)")
             
           timeString.draw(in: timeRect, withAttributes: attributes)
             
@@ -491,14 +499,9 @@ public final class TimelineView: UIView {
       let eventView = eventViews[idx]
       eventView.frame = attributes.frame
         
-      var x: CGFloat
-      if UIView.userInterfaceLayoutDirection(for: semanticContentAttribute) == .rightToLeft {
-        x = bounds.width - attributes.frame.minX - attributes.frame.width
-      } else {
-        x = attributes.frame.minX
-      }
+//      let x: CGFloat = attributes.frame.minX
         
-      eventView.frame = CGRect(x: x,
+      eventView.frame = CGRect(x: 60,
                                y: attributes.frame.minY,
                                width: attributes.frame.width - style.eventGap,
                                height: attributes.frame.height - style.eventGap)

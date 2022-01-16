@@ -61,7 +61,7 @@ public final class DayDateCell: UIView, DaySelectorItemProtocol {
 
   private func updateState() {
 //    let isWeekend = isAWeekend(date: date)
-    dayLabel.font = UIFont.systemFont(ofSize: 13)
+    dayLabel.font = UIFont.systemFont(ofSize: 17)
 //    dayLabel.textColor = isWeekend ? style.weekendTextColor : style.inactiveTextColor
     // 0114 by yuan
     if selected{

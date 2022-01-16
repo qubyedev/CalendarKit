@@ -97,14 +97,16 @@ import UIKit
   }
     
   private func updateDate() {
-    dateFormatter.dateFormat = "h:mm a"//is24hClock ? "HH:mm" : "h:mm a" 0115 by yuan
-    dateFormatter.calendar = calendar
-    dateFormatter.timeZone = calendar.timeZone
+    let dateFormatterYuan = DateFormatter()
+    dateFormatterYuan.calendar = calendar
+    dateFormatterYuan.timeZone = calendar.timeZone
+    dateFormatterYuan.locale = Locale(identifier: "en")
+    dateFormatterYuan.dateFormat = "h:mm a"//is24hClock ? "HH:mm" : "h:mm a" 0115 by yuan
 //    dateFormatter.timeZone = TimeZone(identifier: "Asia/Taipei")
 //    print("test 0115 dateFormatter.timeZone: \(dateFormatter.timepZone)")
-    timeLabel.text = dateFormatter.string(from: date)
-//    print("test 0115 date: \(date)")
-//    print("test 0115 currentTimeIndicator timeLabel.text: \(timeLabel.text)")
+    timeLabel.text = dateFormatterYuan.string(from: date)
+//    print("test 0116 date: \(date)")
+//    print("test 0116 currentTimeIndicator timeLabel.text: \(timeLabel.text)")
     timeLabel.sizeToFit()
     setNeedsLayout()
     configureTimer()
