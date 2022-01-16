@@ -140,14 +140,14 @@ public final class DaySelector: UIView {
             x = parentWidth - x - size.width
         }
         
-        print("test 0114 size: \(size)")
+//        print("test 0114 size: \(size)")
         
         let origin = CGPoint(x: x,
                            y: 0)
         let frame = CGRect(origin: origin,
                          size: newSize)
         
-        print("test 0114 frame: \(frame)")
+//        print("test 0114 frame: \(frame)")
         item.frame = frame
     }
   }

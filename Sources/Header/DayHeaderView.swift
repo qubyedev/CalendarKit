@@ -3,6 +3,7 @@ import UIKit
 public final class DayHeaderView: UIView, DaySelectorDelegate, DayViewStateUpdating, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
   public private(set) var daysInWeek = 7
   public let calendar: Calendar
+    public var didScrollPageCallback:(_ date:Date) -> () = {_ in}
 
   private var style = DayHeaderStyle()
   private var currentSizeClass = UIUserInterfaceSizeClass.compact
@@ -191,6 +192,7 @@ public final class DayHeaderView: UIView, DaySelectorDelegate, DayViewStateUpdat
       selector.selectedIndex = currentWeekdayIndex
       if let selectedDate = selector.selectedDate {
         state?.client(client: self, didMoveTo: selectedDate)
+        self.didScrollPageCallback(selectedDate)
       }
     }
     // Deselect all the views but the currently visible one
