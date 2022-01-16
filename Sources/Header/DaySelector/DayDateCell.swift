@@ -129,7 +129,7 @@ public final class DayDateCell: UIView, DaySelectorItemProtocol {
     let padding = freeSpace / 2
     [dateLabel, dayLabel].forEach { (label) in
       label.frame.origin.x += padding
-        print("test 0117 label.text: \(label.text)")
+//        print("test 0117 label.text: \(label.text)")
     }
   }
   override public func tintColorDidChange() {

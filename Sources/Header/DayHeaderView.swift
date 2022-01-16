@@ -16,6 +16,8 @@ public final class DayHeaderView: UIView, DaySelectorDelegate, DayViewStateUpdat
       swipeLabelView.state = state
     }
   }
+    
+    private var separator = UIView()
 
   private var currentWeekdayIndex = -1
 
@@ -48,6 +50,10 @@ public final class DayHeaderView: UIView, DaySelectorDelegate, DayViewStateUpdat
     addSubview(daySymbolsView)//add by Yuan 12/04
     backgroundColor = style.backgroundColor
     configurePagingViewController()
+    separator = UIView(frame: CGRect(x: 0, y: 40, width: bounds.width, height: 1))
+    let separatorColor = UIColor(red: 0.90, green: 0.90, blue: 0.92, alpha: 1.00)
+    separator.backgroundColor = separatorColor
+    addSubview(separator)
   }
   
   private func configurePagingViewController() {
@@ -104,6 +110,11 @@ public final class DayHeaderView: UIView, DaySelectorDelegate, DayViewStateUpdat
                                               size: CGSize(width: bounds.width, height: pagingScrollViewHeight))
 //    swipeLabelView.frame = CGRect(origin: CGPoint(x: 0, y: bounds.height - 10 - swipeLabelViewHeight),
 //                                  size: CGSize(width: bounds.width, height: swipeLabelViewHeight))
+    
+//    print("test 0117 pagingViewController.view.bounds.maxY: \(pagingViewController.view.bounds.maxY)")
+    separator.frame = CGRect(origin: CGPoint(x: 0, y: 40), size: CGSize(width: bounds.width, height: 1))
+//    print("test 0117 separator.bounds: \(separator.bounds)")
+//    print("test 0117 separator.frame: \(separator.frame)")
   }
 
   public func transitionToHorizontalSizeClass(_ sizeClass: UIUserInterfaceSizeClass) {
