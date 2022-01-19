@@ -4,6 +4,7 @@ public final class DayHeaderView: UIView, DaySelectorDelegate, DayViewStateUpdat
   public private(set) var daysInWeek = 7
   public let calendar: Calendar
     public var didScrollPageCallback:(_ date:Date) -> () = {_ in}
+    public var didSelectDateCallback:(_ date:Date) -> () = {_ in}
 
   private var style = DayHeaderStyle()
   private var currentSizeClass = UIUserInterfaceSizeClass.compact
@@ -128,6 +129,7 @@ public final class DayHeaderView: UIView, DaySelectorDelegate, DayViewStateUpdat
 
   public func dateSelectorDidSelectDate(_ date: Date) {
     state?.move(to: date)
+    self.didSelectDateCallback(date)
   }
 
   // MARK: DayViewStateUpdating

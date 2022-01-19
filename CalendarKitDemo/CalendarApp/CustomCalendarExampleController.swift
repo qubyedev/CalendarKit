@@ -66,6 +66,9 @@ class CustomCalendarExampleController: DayViewController {
     navigationController?.navigationBar.isTranslucent = false
     dayView.autoScrollToFirstEvent = true
     reloadData()
+    self.dayView.dayHeaderView.didSelectDateCallback = { date in
+//      print("test 0119 date: \(date)")
+    }
 //    dayView.dayHeaderView.didScrollPageCallback = { date in
 //      print("5566 date: \(date)")
 //    }
