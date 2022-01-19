@@ -71,6 +71,15 @@ class CustomCalendarExampleController: DayViewController {
 //    }
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    print("test 0119 viewDidAppear")
+    let d = DateFormatter()
+    d.dateFormat = "yyyy/MM/dd HH:mm:ss"
+    self.dayView.move(to: d.date(from: "2022/03/04 20:00:00")!){
+      print("test 0119 completion DONE!")
+    }
+  }
+  
   // MARK: EventDataSource
   
   override func eventsForDate(_ date: Date) -> [EventDescriptor] {
