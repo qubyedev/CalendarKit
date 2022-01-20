@@ -104,7 +104,8 @@ import UIKit
     dateFormatterYuan.dateFormat = "h:mm a"//is24hClock ? "HH:mm" : "h:mm a" 0115 by yuan
 //    dateFormatter.timeZone = TimeZone(identifier: "Asia/Taipei")
 //    print("test 0115 dateFormatter.timeZone: \(dateFormatter.timepZone)")
-    timeLabel.text = dateFormatterYuan.string(from: date)
+//    timeLabel.text = dateFormatterYuan.string(from: date)
+    timeLabel.text = ""
 //    print("test 0116 date: \(date)")
 //    print("test 0116 currentTimeIndicator timeLabel.text: \(timeLabel.text)")
     timeLabel.sizeToFit()
