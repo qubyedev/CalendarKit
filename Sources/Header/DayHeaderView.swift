@@ -106,6 +106,7 @@ public final class DayHeaderView: UIView, DaySelectorDelegate, DayViewStateUpdat
 
   override public func layoutSubviews() {
     super.layoutSubviews()
+    print("test 0123 DayHeaderView")
     daySymbolsView.frame = CGRect(origin: .zero,
                                   size: CGSize(width: bounds.width, height: daySymbolsViewHeight))
     pagingViewController.view?.frame = CGRect(origin: CGPoint(x: 0, y: 0),

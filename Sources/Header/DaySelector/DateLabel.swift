@@ -81,13 +81,14 @@ public final class DateLabel: UILabel, DaySelectorItemProtocol {
     return false
   }
 
-  private func animate(){
-    UIView.transition(with: self,
-                      duration: 0.4,
-                      options: .transitionCrossDissolve,
-                      animations: {
-                        self.updateState()
-    }, completion: nil)
+  private func animate(){//20220123 remove animation
+//    UIView.transition(with: self,
+//                      duration: 0.4,
+//                      options: .transitionCrossDissolve,
+//                      animations: {
+//                        self.updateState()
+//    }, completion: nil)
+    self.updateState()
   }
 
   override public func layoutSubviews() {
