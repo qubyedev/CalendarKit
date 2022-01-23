@@ -162,6 +162,10 @@ public class DayView: UIView, TimelinePagerViewDelegate {
     dayHeaderView.transitionToHorizontalSizeClass(sizeClass)
     updateStyle(style)
   }
+    
+    public func eventViewFor(eventDescriptor: EventDescriptor) -> EventView?{
+        return timelinePagerView.eventViewFor(eventDescriptor: eventDescriptor)
+    }
 
   public func create(event: EventDescriptor, animated: Bool = false) {
     timelinePagerView.create(event: event, animated: animated)

@@ -208,6 +208,18 @@ public final class TimelineView: UIView {
     }
     return nil
   }
+    
+    func eventViewFor(eventDescriptor: EventDescriptor) -> EventView?{
+        for eventView in eventViews{
+            if eventView.descriptor?.startDate == eventDescriptor.startDate &&
+                eventView.descriptor?.endDate == eventDescriptor.endDate &&
+                eventView.descriptor?.titleText == eventDescriptor.titleText &&
+                eventView.descriptor?.timeText == eventDescriptor.timeText {
+                    return eventView
+            }
+        }
+        return nil
+    }
   
   
   /**

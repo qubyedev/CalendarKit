@@ -448,6 +448,10 @@ public final class TimelinePagerView: UIView, UIGestureRecognizerDelegate, UIScr
                                               completion: completionHandler(_:))
     }
   }
+    
+    public func eventViewFor(eventDescriptor: EventDescriptor) -> EventView?{
+        return currentTimeline?.container.timeline.eventViewFor(eventDescriptor: eventDescriptor)
+    }
 
   // MARK: UIPageViewControllerDataSource
 

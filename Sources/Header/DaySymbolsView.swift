@@ -55,7 +55,7 @@ public final class DaySymbolsView: UIView {
 
   override public func layoutSubviews() {
     let labelsCount = CGFloat(labels.count)
-    print("test 0123 DaySymbolsView labelsCount:\(labelsCount)")
+//    print("test 0123 DaySymbolsView labelsCount:\(labelsCount)")
 
     var per = bounds.width - bounds.height * labelsCount
     per /= labelsCount
