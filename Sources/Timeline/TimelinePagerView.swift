@@ -8,7 +8,7 @@ public protocol TimelinePagerViewDelegate: AnyObject {
   func timelinePagerDidTransitionCancel(timelinePager: TimelinePagerView)
   func timelinePager(timelinePager: TimelinePagerView, willMoveTo date: Date)
   func timelinePager(timelinePager: TimelinePagerView, didMoveTo  date: Date)
-  func timelinePager(timelinePager: TimelinePagerView, didLongPressTimelineAt date: Date)
+  func timelinePager(timelinePager: TimelinePagerView, pressLocation location:CGPoint, didLongPressTimelineAt date: Date)
 
   // Editing
   func timelinePager(timelinePager: TimelinePagerView, didUpdate event: EventDescriptor)
@@ -499,8 +499,8 @@ public final class TimelinePagerView: UIView, UIGestureRecognizerDelegate, UIScr
     delegate?.timelinePager(timelinePager: self, didTapTimelineAt: date)
   }
   
-  public func timelineView(_ timelineView: TimelineView, didLongPressAt date: Date) {
-    delegate?.timelinePager(timelinePager: self, didLongPressTimelineAt: date)
+    public func timelineView(_ timelineView: TimelineView, pressLocation location:CGPoint, didLongPressAt date: Date) {
+        delegate?.timelinePager(timelinePager: self, pressLocation: location, didLongPressTimelineAt: date)
   }
   
   public func timelineView(_ timelineView: TimelineView, didTap event: EventView) {

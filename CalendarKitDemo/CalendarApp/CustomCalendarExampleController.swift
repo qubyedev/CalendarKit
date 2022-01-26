@@ -167,12 +167,14 @@ class CustomCalendarExampleController: DayViewController {
     print("DayView = \(dayView) did move to: \(date)")
   }
   
-  override func dayView(dayView: DayView, didLongPressTimelineAt date: Date) {
+  override func dayView(dayView: DayView, pressLocation location:CGPoint, didLongPressTimelineAt date: Date) {
     print("Did long press timeline at date \(date)")
     // Cancel editing current event and start creating a new one
     endEventEditing()
     let event = generateEventNearDate(date)
     print("Creating a new event")
+    print("yyyyyyyyyyy")
+    print("location: \(location)")
     create(event: event, animated: true)
     createdEvent = event
   }

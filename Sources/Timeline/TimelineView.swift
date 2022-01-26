@@ -2,7 +2,7 @@ import UIKit
 
 public protocol TimelineViewDelegate: AnyObject {
   func timelineView(_ timelineView: TimelineView, didTapAt date: Date)
-  func timelineView(_ timelineView: TimelineView, didLongPressAt date: Date)
+    func timelineView(_ timelineView: TimelineView, pressLocation location: CGPoint, didLongPressAt date: Date)
   func timelineView(_ timelineView: TimelineView, didTap event: EventView)
   func timelineView(_ timelineView: TimelineView, didLongPress event: EventView)
 }
@@ -178,7 +178,7 @@ public final class TimelineView: UIView {
       if let eventView = findEventView(at: pressedLocation) {
         delegate?.timelineView(self, didLongPress: eventView)
       } else {
-        delegate?.timelineView(self, didLongPressAt: yToDate(pressedLocation.y))
+        delegate?.timelineView(self, pressLocation: pressedLocation, didLongPressAt: yToDate(pressedLocation.y))
       }
     }
   }

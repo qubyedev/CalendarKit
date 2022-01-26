@@ -4,7 +4,7 @@ public protocol DayViewDelegate: AnyObject {
   func dayViewDidSelectEventView(_ eventView: EventView)
   func dayViewDidLongPressEventView(_ eventView: EventView)
   func dayView(dayView: DayView, didTapTimelineAt date: Date)
-  func dayView(dayView: DayView, didLongPressTimelineAt date: Date)
+  func dayView(dayView: DayView, pressLocation location:CGPoint, didLongPressTimelineAt date: Date)
   func dayViewDidBeginDragging(dayView: DayView)
   func dayViewDidTransitionCancel(dayView: DayView)
   func dayView(dayView: DayView, willMoveTo date: Date)
@@ -199,8 +199,8 @@ public class DayView: UIView, TimelinePagerViewDelegate {
   public func timelinePager(timelinePager: TimelinePagerView, didMoveTo  date: Date) {
     delegate?.dayView(dayView: self, didMoveTo: date)
   }
-  public func timelinePager(timelinePager: TimelinePagerView, didLongPressTimelineAt date: Date) {
-    delegate?.dayView(dayView: self, didLongPressTimelineAt: date)
+  public func timelinePager(timelinePager: TimelinePagerView, pressLocation location:CGPoint, didLongPressTimelineAt date: Date) {
+    delegate?.dayView(dayView: self, pressLocation:location , didLongPressTimelineAt: date)
   }
   public func timelinePager(timelinePager: TimelinePagerView, didTapTimelineAt date: Date) {
     delegate?.dayView(dayView: self, didTapTimelineAt: date)
