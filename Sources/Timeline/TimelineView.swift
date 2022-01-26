@@ -174,11 +174,14 @@ public final class TimelineView: UIView {
   @objc private func longPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
     if (gestureRecognizer.state == .began) {
       // Get timeslot of gesture location
+        
+        let contentOffset = (self.superview as! UIScrollView).contentOffset
       let pressedLocation = gestureRecognizer.location(in: self)
+        let pressedLocationWithoutScroll = CGPoint(x: pressedLocation.x - contentOffset.x, y: pressedLocation.y - contentOffset.y)
       if let eventView = findEventView(at: pressedLocation) {
         delegate?.timelineView(self, didLongPress: eventView)
       } else {
-        delegate?.timelineView(self, pressLocation: pressedLocation, didLongPressAt: yToDate(pressedLocation.y))
+        delegate?.timelineView(self, pressLocation: pressedLocationWithoutScroll, didLongPressAt: yToDate(pressedLocation.y))
       }
     }
   }
@@ -210,20 +213,20 @@ public final class TimelineView: UIView {
   }
     
     func eventViewFor(eventDescriptor: EventDescriptor) -> EventView?{
-//        for eventView in eventViews{
-//            if eventView.descriptor?.startDate == eventDescriptor.startDate &&
-//                eventView.descriptor?.endDate == eventDescriptor.endDate &&
-//                eventView.descriptor?.titleText === eventDescriptor.titleText &&
-//                eventView.descriptor?.timeText == eventDescriptor.timeText {
-//                    return eventView
-//            }
-//        }
-        
         for eventView in eventViews{
-            if eventView.descriptor === eventDescriptor{
-                return eventView
+            if eventView.descriptor?.startDate == eventDescriptor.startDate &&
+                eventView.descriptor?.endDate == eventDescriptor.endDate &&
+                eventView.descriptor?.titleText == eventDescriptor.titleText &&
+                eventView.descriptor?.timeText == eventDescriptor.timeText {
+                    return eventView
             }
         }
+        
+//        for eventView in eventViews{
+//            if eventView.descriptor === eventDescriptor{
+//                return eventView
+//            }
+//        }
         return nil
     }
   
